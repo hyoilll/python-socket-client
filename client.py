@@ -1,5 +1,20 @@
 import socket
 
+
+# send fuction
+def send(sock):
+    sendMsg = input('>>> ')
+    sock.send(sendMsg.encode('utf-8'))
+
+    return sendMsg
+
+
+# recv function
+def recv(sock):
+    recvMsg = sock.recv(1024)
+    print('Received', repr(recvMsg.decode()))
+
+
 HOST = '127.0.0.1'
 PORT = 8080
 
@@ -16,14 +31,12 @@ print('접속 완료')
 # send : 소켓을 통한 메시지 전송
 
 while True:
-    sendMsg = input('>>> ')
-    clientSocket.send(sendMsg.encode('utf-8'))
+    sendMsg = send(clientSocket)
 
     if sendMsg == 'quit':
         break
 
-    recvMsg = clientSocket.recv(1024)
-    print('Received', repr(recvMsg.decode()))
+    recv(clientSocket)
 
 
 print('클라이언트 종료')
