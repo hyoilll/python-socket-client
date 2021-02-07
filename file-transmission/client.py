@@ -8,12 +8,12 @@ HOST = '127.0.0.1'
 PORT = 8080
 
 clientSock.connect((HOST, PORT))
-print('연결성공')
+print('サーバー側に接続しました。')
 
 while True:
-    print('# 1 클라이언트 -> 서버 업로드')
-    print('# 2 서버 -> 클라이언트 다운로드')
-    print('# 3 서버 파일 리스트 조회')
+    print('# 1 クライアント -> サーバー アップロード')
+    print('# 2 サーバー -> クライアント ダウンロード')
+    print('# 3 サーバー側のファイルリストをチェック')
     print('exit -> 999')
     print('menu -> ', end='')
     menu = int(input())
@@ -24,7 +24,7 @@ while True:
 
         while True:
             data_transferred = 0
-            fileName = input('전송할 파일 이름을 입력하시오. :')
+            fileName = input('伝送するファイルのタイトルを入力してください。 :')
 
             # 현재 내 리스트에 파일이 있는지 검사
             path_dir = 'C:\\Users\\dlgyd\\OneDrive\\문서\\GitHub\\python-socket-client\\file-transmission'
@@ -35,7 +35,7 @@ while True:
                 # filename 전송
                 clientSock.send(fileName.encode('utf-8'))
 
-                print('파일 : %s / 전송 시작' % fileName)
+                print('ファイル : %s / 伝送スタット' % fileName)
 
                 with open(fileName, 'rb') as f:
                     try:
@@ -46,23 +46,23 @@ while True:
                     except Exception as ex:
                         print(ex)
 
-                print('전송완료 %s, 전송량 %d' % (fileName, data_transferred))
+                print('伝送完了 %s, 伝送量 %d' % (fileName, data_transferred))
                 break
             # 없으면 없는 파일이라고 재입력
             else:
-                print('현재 폴더에 파일이 없습니다.')
+                print('今のディレクトリーにはファイルがありません。')
     elif menu == 2:  # 2 서버 -> 클라이언트 다운로드
         menu = str(menu)
         clientSock.send(menu.encode('utf-8'))
 
-        fileName = input('전송받을 파일 이름을 입력하시오. : ')
+        fileName = input('ダウンロードするファイルのタイトルを入力してください。: ')
         clientSock.send(fileName.encode('utf-8'))
 
         data = clientSock.recv(1024)
         data_transferred = 0
 
         if not data:
-            print('파일 %s 가 서버에 존재하지 않음' % fileName)
+            print('ファイル %s がサーバーに存在しておりません。' % fileName)
             sys.exit()
 
         nowdir = os.getcwd()
@@ -82,7 +82,7 @@ while True:
             except Exception as ex:
                 print(ex)
 
-        print('수신완료 %s, 전송량 %d' % (fileName, data_transferred))
+        print('受信完了 %s, 伝送量 %d' % (fileName, data_transferred))
     elif menu == 3:  # 3 서버 파일 리스트 조회
         menu = str(menu)
         clientSock.send(menu.encode('utf-8'))
@@ -93,5 +93,5 @@ while True:
     elif menu == 999:
         break
     else:
-        print('1 ~ 3의 범위에서 선택해주세요.')
+        print('1 ~ 3の範囲で選んでください。')
     print()
