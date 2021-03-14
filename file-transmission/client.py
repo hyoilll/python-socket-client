@@ -4,6 +4,9 @@ import sys
 
 clientSock = socket(AF_INET, SOCK_STREAM)
 
+# HOST = 'ec2-3-36-58-88.ap-northeast-2.compute.amazonaws.com'
+# PORT = 9000
+
 HOST = '127.0.0.1'
 PORT = 8080
 
@@ -27,7 +30,7 @@ while True:
             fileName = input('伝送するファイルのタイトルを入力してください。 :')
 
             # 현재 내 리스트에 파일이 있는지 검사
-            path_dir = 'C:\\Users\\dlgyd\\OneDrive\\문서\\GitHub\\python-socket-client\\file-transmission'
+            path_dir = os.getcwd()
             file_list = os.listdir(path_dir)
 
             # 있으면 전송
@@ -61,28 +64,32 @@ while True:
         data = clientSock.recv(1024)
         data_transferred = 0
 
-        if not data:
+        if data.decode('utf-8') == 'Nothing File':
             print('ファイル %s がサーバーに存在しておりません。' % fileName)
-            sys.exit()
+        else:
+            nowdir = os.getcwd()
+            print('path : ', nowdir)
 
-        nowdir = os.getcwd()
-        print('path : ', nowdir)
+            with open(nowdir + '\\' + fileName, "wb") as f:  # 현재 dir에 파일을 받음
+                print('hello1')
+                try:
+                    print('hello2')
+                    while data:  # 데이터가 있을 때까지
+                        print('hello3')
+                        f.write(data)  # 1024바이트 쓴다
+                        print('hello4')
+                        data_transferred += len(data)
+                        print(data_transferred)
 
-        with open(nowdir + '\\' + fileName, "wb") as f:  # 현재 dir에 파일을 받음
-            try:
-                while data:  # 데이터가 있을 때까지
-                    f.write(data)  # 1024바이트 쓴다
-                    data_transferred += len(data)
+                        # 1024보다 작다는 것은 다음에 읽어올 자료가 없다는 것
+                        if len(data) < 1024:
+                            break
 
-                    # 1024보다 작다는 것은 다음에 읽어올 자료가 없다는 것
-                    if len(data) < 1024:
-                        break
+                        data = clientSock.recv(1024)   # 1024바이트를 받아 온다
+                except Exception as ex:
+                    print(ex)
 
-                    data = clientSock.recv(1024)  # 1024바이트를 받아 온다
-            except Exception as ex:
-                print(ex)
-
-        print('受信完了 %s, 伝送量 %d' % (fileName, data_transferred))
+            print('受信完了 %s, 伝送量 %d' % (fileName, data_transferred))
     elif menu == 3:  # 3 서버 파일 리스트 조회
         menu = str(menu)
         clientSock.send(menu.encode('utf-8'))
@@ -94,4 +101,5 @@ while True:
         break
     else:
         print('1 ~ 3の範囲で選んでください。')
-    print()
+
+clientSock.close()
