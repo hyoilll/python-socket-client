@@ -21,7 +21,7 @@ while True:
     print('menu -> ', end='')
     menu = int(input())
 
-    if menu == 1:  # 1 클라이언트 -> 서버 업로드
+    if menu == 1:  # 1 クライアント -> サーバー ファイルをアップロード
         menu = str(menu)
         clientSock.send(menu.encode('utf-8'))
 
@@ -29,13 +29,13 @@ while True:
             data_transferred = 0
             fileName = input('伝送するファイルのタイトルを入力してください。 :')
 
-            # 현재 내 리스트에 파일이 있는지 검사
+            # 今のディレクトリーの中にファイルがあるかどうかチェック
             path_dir = os.getcwd()
             file_list = os.listdir(path_dir)
 
-            # 있으면 전송
+            # ありましたら伝送
             if fileName in file_list:
-                # filename 전송
+                # filename 伝送
                 clientSock.send(fileName.encode('utf-8'))
 
                 print('ファイル : %s / 伝送スタット' % fileName)
@@ -51,10 +51,10 @@ while True:
 
                 print('伝送完了 %s, 伝送量 %d' % (fileName, data_transferred))
                 break
-            # 없으면 없는 파일이라고 재입력
+            # ファイルが存在してないので、もう一度入力
             else:
                 print('今のディレクトリーにはファイルがありません。')
-    elif menu == 2:  # 2 서버 -> 클라이언트 다운로드
+    elif menu == 2:  # 2 サーバー -> クライアント ファイルをダウンロード
         menu = str(menu)
         clientSock.send(menu.encode('utf-8'))
 
@@ -70,27 +70,28 @@ while True:
             nowdir = os.getcwd()
             print('path : ', nowdir)
 
-            with open(nowdir + '\\' + fileName, "wb") as f:  # 현재 dir에 파일을 받음
+            # 今のディレクトリーにファイルをセーブする
+            with open(nowdir + '\\' + fileName, "wb") as f:
                 print('hello1')
                 try:
                     print('hello2')
-                    while data:  # 데이터가 있을 때까지
+                    while data:  # 　データがある時まで
                         print('hello3')
-                        f.write(data)  # 1024바이트 쓴다
+                        f.write(data)  # 1024バイトを書く
                         print('hello4')
                         data_transferred += len(data)
                         print(data_transferred)
 
-                        # 1024보다 작다는 것은 다음에 읽어올 자료가 없다는 것
+                        # 1024より少ないとことは次のデータがないということを意味する
                         if len(data) < 1024:
                             break
 
-                        data = clientSock.recv(1024)   # 1024바이트를 받아 온다
+                        data = clientSock.recv(1024)   # 1024バイトを貰う
                 except Exception as ex:
                     print(ex)
 
             print('受信完了 %s, 伝送量 %d' % (fileName, data_transferred))
-    elif menu == 3:  # 3 서버 파일 리스트 조회
+    elif menu == 3:  # 3 サーバー側のファイルリストチェック
         menu = str(menu)
         clientSock.send(menu.encode('utf-8'))
 
