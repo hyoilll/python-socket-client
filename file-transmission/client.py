@@ -68,17 +68,12 @@ while True:
             print('ファイル %s がサーバーに存在しておりません。' % fileName)
         else:
             nowdir = os.getcwd()
-            print('path : ', nowdir)
 
             # 今のディレクトリーにファイルをセーブする
             with open(nowdir + '\\' + fileName, "wb") as f:
-                print('hello1')
                 try:
-                    print('hello2')
                     while data:  # 　データがある時まで
-                        print('hello3')
                         f.write(data)  # 1024バイトを書く
-                        print('hello4')
                         data_transferred += len(data)
                         print(data_transferred)
 
