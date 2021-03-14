@@ -33,20 +33,21 @@
 
 1. 接続
 
-![client-connect](https://user-images.githubusercontent.com/50327128/107136923-dd866180-694a-11eb-927d-fccc5f1261ae.JPG)
+![client接続](https://user-images.githubusercontent.com/50327128/111060908-aaa03200-84e3-11eb-8832-0e72f2e28b74.JPG)
 
 2. アップロード
 
-![client-upload](https://user-images.githubusercontent.com/50327128/107136930-f55de580-694a-11eb-9570-7cb8e936002a.JPG)
+![clientアップロード0](https://user-images.githubusercontent.com/50327128/111060909-ac69f580-84e3-11eb-89a7-c72e6abfdfa3.JPG)
+![clientアップロード1](https://user-images.githubusercontent.com/50327128/111060911-ae33b900-84e3-11eb-8cd4-124632410b89.JPG)
 
 3. サーバー側のファイルリストをチェック
 
-![client-filelistprint](https://user-images.githubusercontent.com/50327128/107136936-fd1d8a00-694a-11eb-9242-dd92ea3e2872.JPG)
+![clientファイルリスト](https://user-images.githubusercontent.com/50327128/111060915-b4299a00-84e3-11eb-9da2-9f4b8044fc4d.JPG)
 
 4. ダウンロード
 
-![client-download](https://user-images.githubusercontent.com/50327128/107136942-06a6f200-694b-11eb-9238-00984448aece.JPG)
-![client-download2](https://user-images.githubusercontent.com/50327128/107136950-0d356980-694b-11eb-80a9-d0d88adb4f06.JPG)
+![clientダウンロード](https://user-images.githubusercontent.com/50327128/111060917-b7bd2100-84e3-11eb-842f-bf29282be6de.JPG)
+![clientダウンロード1](https://user-images.githubusercontent.com/50327128/111060919-b8ee4e00-84e3-11eb-840f-36abceae4aac.JPG)
 
 5. 終了
 
